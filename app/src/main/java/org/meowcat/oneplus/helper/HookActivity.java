@@ -18,8 +18,8 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
 public class HookActivity implements IXposedHookLoadPackage {
 
-    private final int OP_FEATURE_SKU_CHINA = 0;
-    private final int OP_FEATURE_SKU_GLOBAL = 1;
+//    private final int OP_FEATURE_SKU_CHINA = 0;
+//    private final int OP_FEATURE_SKU_GLOBAL = 1;
 
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam LoadPackageParam) {
@@ -74,34 +74,34 @@ public class HookActivity implements IXposedHookLoadPackage {
             });
         }
 
-        if (packageName.equals("com.oneplus.account")) {
-            findAndHookMethod("com.oneplus.sdk.utils.OpFeatures", classLoader,
-                    "isSupport", int[].class, new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) {
-                            NoTaiChi.checkTC(param);
-                            int iLength = ((int[]) param.args[0]).length;
-                            if (MainActivity.mOverSeasAccountFlag.exists()) {
-                                XposedBridge.log("OnePlusHelper: useOverSeasAccount");
-                                for (int i = 0; i < iLength; i++) {
-                                    if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_CHINA) {
-                                        param.setResult(false);
-                                    } else if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_GLOBAL) {
-                                        param.setResult(true);
-                                    }
-                                }
-                            } else {
-                                XposedBridge.log("OnePlusHelper: useChinaAccount");
-                                for (int i = 0; i < iLength; i++) {
-                                    if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_CHINA) {
-                                        param.setResult(true);
-                                    } else if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_GLOBAL) {
-                                        param.setResult(false);
-                                    }
-                                }
-                            }
-                        }
-                    });
-        }
+//        if (packageName.equals("com.oneplus.account")) {
+//            findAndHookMethod("com.oneplus.sdk.utils.OpFeatures", classLoader,
+//                    "isSupport", int[].class, new XC_MethodHook() {
+//                        @Override
+//                        protected void beforeHookedMethod(MethodHookParam param) {
+//                            NoTaiChi.checkTC(param);
+//                            int iLength = ((int[]) param.args[0]).length;
+//                            if (MainActivity.mOverSeasAccountFlag.exists()) {
+//                                XposedBridge.log("OnePlusHelper: useOverSeasAccount");
+//                                for (int i = 0; i < iLength; i++) {
+//                                    if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_CHINA) {
+//                                        param.setResult(false);
+//                                    } else if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_GLOBAL) {
+//                                        param.setResult(true);
+//                                    }
+//                                }
+//                            } else {
+//                                XposedBridge.log("OnePlusHelper: useChinaAccount");
+//                                for (int i = 0; i < iLength; i++) {
+//                                    if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_CHINA) {
+//                                        param.setResult(true);
+//                                    } else if (((int[]) param.args[0])[i] == OP_FEATURE_SKU_GLOBAL) {
+//                                        param.setResult(false);
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    });
+//        }
     }
 }

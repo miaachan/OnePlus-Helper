@@ -27,41 +27,42 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean useOverSeasAccount = mOverSeasAccountFlag.exists();
+//        boolean useOverSeasAccount = mOverSeasAccountFlag.exists();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView mXposedTextView = findViewById(R.id.tv_xposed_status);
-        Switch mAccountSwitch = findViewById(R.id.switch_account_location);
+//        Switch mAccountSwitch = findViewById(R.id.switch_account_location);
+        // Show Xposed module active status mode here
         if (getXposedStatus(false)) {
             mXposedTextView.setText(R.string.xposed_enabled);
         } else {
             mXposedTextView.setText(R.string.xposed_disabled);
         }
-        mAccountSwitch.setChecked(useOverSeasAccount);
-        mAccountSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    try {
-                        if (!mOverSeasAccountFlag.getParentFile().exists()) {
-                            if (!mOverSeasAccountFlag.getParentFile().mkdirs()) {
-                                Log.d(MeowCatApplication.TAG, "Create flag OverSeasAccount parent folder failed");
-                            }
-                        }
-                        if (!mOverSeasAccountFlag.createNewFile()) {
-                            Log.d(MeowCatApplication.TAG, "Create flag OverSeasAccount failed");
-                        }
-                    } catch (IOException e) {
-                        Log.d(MeowCatApplication.TAG, "Create flag OverSeasAccount failed: " + e.getLocalizedMessage());
-                    }
-                } else {
-                    if (!mOverSeasAccountFlag.delete()) {
-                        Log.d(MeowCatApplication.TAG, "Remove flag OverSeasAccount failed");
-                    }
-                }
-            }
-        });
+//        mAccountSwitch.setChecked(useOverSeasAccount);
+//        mAccountSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    try {
+//                        if (!mOverSeasAccountFlag.getParentFile().exists()) {
+//                            if (!mOverSeasAccountFlag.getParentFile().mkdirs()) {
+//                                Log.d(MeowCatApplication.TAG, "Create flag OverSeasAccount parent folder failed");
+//                            }
+//                        }
+//                        if (!mOverSeasAccountFlag.createNewFile()) {
+//                            Log.d(MeowCatApplication.TAG, "Create flag OverSeasAccount failed");
+//                        }
+//                    } catch (IOException e) {
+//                        Log.d(MeowCatApplication.TAG, "Create flag OverSeasAccount failed: " + e.getLocalizedMessage());
+//                    }
+//                } else {
+//                    if (!mOverSeasAccountFlag.delete()) {
+//                        Log.d(MeowCatApplication.TAG, "Remove flag OverSeasAccount failed");
+//                    }
+//                }
+//            }
+//        });
     }
 
     public boolean getXposedStatus(boolean status) {
